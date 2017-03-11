@@ -1,0 +1,19 @@
+{
+  "name": "scraper",
+  "version": "1.0.0",
+  "description": "Scraper for various data on the web",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Joey Sherman",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "csv": "^1.1.1",
+    "express": "^4.15.2",
+    "morgan": "^1.8.1",
+    "request": "^2.81.0",
+    "request-promise": "^4.1.1"
+  }
+}
