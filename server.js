@@ -44,22 +44,25 @@ if (fs.existsSync(filename)) {
 stream = fs.createWriteStream(filename);
 
 
-stream.on('flush', function() {
-  logger.log('flushing');
+stream.on('error', function() {
+  logger.log('error');
+});
+
+stream.on('close', function() {
+  logger.log('closing');
 });
 
 stream.on('flush', function() {
   logger.log('flushing');
 });
 
-stream.on('flush', function() {
-  logger.log('flushing');
+stream.on('finish', function() {
+  logger.log('finish');
 });
 
-stream.on('flush', function() {
-  logger.log('flushing');
-});
-
+stream.addRow = function(data) {
+  stream.write(data)
+}
 
 function scrape(url){
   request(url)
@@ -67,9 +70,10 @@ function scrape(url){
       return cheerio.load(body);
     })
     .then(function($) {
-      $('ul > li > a').each(function(i, elem) {
+      $('tr > td > a').each(function(i, elem) {
 
-        console.log('#' + i + ' - ' + $(this).text());
+
+
       });
     })
     .catch(function(err) {
@@ -77,4 +81,4 @@ function scrape(url){
     });
 };
 
-scrape('https://en.wikipedia.org/wiki/Lists_of_American_institutions_of_higher_education');
+scrape('https://en.wikipedia.org/wiki/List_of_colleges_and_universities_in_California');
